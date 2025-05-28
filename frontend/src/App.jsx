@@ -15,7 +15,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/branch/:branchId" element={<Branch/>}/>
-        <Route path="/branch/:branchId/semester/:semesterId" element={<Semester/>}/>
+        <Route path="/branch/:branchId/semester/:semesterId/subject/:subjectId" element={<Subject/>}/>
         <Route path="/branch/:branchId/semester/:semesterId/subject/:subjectId" element={<Subject/>}/>
         <Route path="/admin" element={<AdminDashboard/>}/>
       </Routes>

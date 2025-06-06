@@ -24,8 +24,8 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  /* display: flex;
+  place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -66,3 +66,60 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.not-found-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5rem;
+  background-color: #c6d5ff;
+  width: 100%;
+}
+
+.not-found-left {
+  color: #142d6f;
+  text-align: center;
+}
+.four-oh-four {
+  font-size: 10rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1em;
+}
+.not-found {
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.description {
+  font-weight: 600;
+  margin: 0;
+}
+
+.back-home {
+  margin-top: 2rem;
+  border-radius: 15px;
+  padding: 0.2em 1.2em 0.2em 1.2em;
+  font-size: 1.8em;
+  font-weight: 300;
+  font-family: inherit;
+  background-color: #142d6f;
+}
+
+@media (max-width: 48rem) {
+  .not-found-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    padding: 0;
+    background-color: #c6d5ff;
+    width: 100%;
+  }
+  .not-found-img{
+    width: 50%;
+  }
+}
+
+

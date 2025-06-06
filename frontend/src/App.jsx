@@ -4,6 +4,7 @@ import Branch from './pages/Branch';
 import Semester from './pages/Semester';
 import Subject from './pages/Subject';
 import AdminDashboard from './pages/AdminDashboard';
+import NotFound from './404Page';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/branch/:branchId/semester/:semesterId" element={<Semester/>}/>
         <Route path="/branch/:branchId/semester/:semesterId/subject/:subjectId" element={<Subject/>}/>
         <Route path="/admin" element={<AdminDashboard/>}/>
+        <Route path="*" element={<NotFound/>}/>
       </Routes>
     </div>
   );

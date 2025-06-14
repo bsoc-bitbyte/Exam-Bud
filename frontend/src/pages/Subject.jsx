@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import UploadList from '../components/UploadList';
 import DiscussionList from '../components/DiscussionList';

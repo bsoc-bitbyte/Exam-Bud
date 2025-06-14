@@ -66,3 +66,71 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+/* NotFound.css */
+.notFoundContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #c6d5ff;   
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  padding: 0;
+  box-sizing: border-box;
+}
+.notFoundText{
+  color: #142d6f;
+  text-align: center;
+  padding: 1rem;
+}
+.fourNotFour{
+  font-size: clamp(4rem, 15vw, 10rem);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1em;
+}
+.pageNotFound{
+  font-size: clamp(1.5rem, 6vw, 3rem);
+  font-weight: 600;
+  margin: 0;
+}
+.description{
+  font-weight: 600;
+  font-size: clamp(1rem, 4vw, 1.5rem);
+  margin: 0;
+}
+.backToHomeBtn{
+  margin-top: 2rem;
+  border-radius: 15px;
+  padding: 0.2em 1.2em 0.2em 1.2em;
+  font-size: clamp(1rem, 4vw, 1.8rem);
+  font-weight: 300;
+  font-family: inherit;
+  background-color: #142d6f;
+  cursor: pointer; 
+  color:#ffffff;
+  box-shadow: 0 8px 16px rgba(10, 30, 80, 0.5);
+  transition: all 0.2 ease;
+}
+.backToHomeBtn:hover{
+  transform: translateY(-2px);
+}
+
+@media (max-width: 48rem) {
+  .notFoundContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction:column;
+    padding: 0;
+    background-color: #c6d5ff;
+    width: 100vw;
+    min-height: 100vh;
+    height: auto;
+  }
+  .notFoundImg{
+    width: 50%;
+  }
+}

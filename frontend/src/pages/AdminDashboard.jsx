@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Navbar from '../components/Navbar';
 
 export default function AdminDashboard() {
   const [allUploads, setAllUploads] = useState([]);
@@ -31,6 +32,7 @@ export default function AdminDashboard() {
 
   return (
     <div>
+      <Navbar/>
       <h1>Admin Dashboard</h1>
       <h2>All Uploads</h2>
       <ul>

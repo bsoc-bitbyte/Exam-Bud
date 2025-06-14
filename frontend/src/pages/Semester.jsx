@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Navbar from '../components/Navbar';
+
 
 export default function Semester() {
   const { branchId, semesterId } = useParams();
@@ -11,6 +13,7 @@ export default function Semester() {
   }, [semesterId]);
   return (
     <div>
+      <Navbar/>
       <h1>Subjects</h1>
       <ul>
         {subs.map(sub =>

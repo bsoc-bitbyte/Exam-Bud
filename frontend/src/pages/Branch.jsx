@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 export default function Branch() {
   const { branchId } = useParams();
@@ -11,6 +12,7 @@ export default function Branch() {
   }, [branchId]);
   return (
     <div>
+      <Navbar/>
       <h1>Semesters</h1>
       <ul>
         {sems.map(s =>

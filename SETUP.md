@@ -91,7 +91,7 @@ npm install
   mv .env.sample .env
   ```
 
-- **Why?** Because this file contains all the secret sauce (database configs, API keys, etc.). Samples of .env are meant to act as a guide to how you set p your environment variables and keys, since actually sharing details of such things might compromise sensitive informtion, it is rather a common practice to share a .env.sample for the aforementioned reasons.
+- **Why?** Because this file contains all the secret sauce (database configs, API keys, etc.). Samples of .env are meant to act as a guide to how you setup your environment variables and keys, since actually sharing details of such things might compromise sensitive informtion, it is rather a common practice to share a .env.sample for the aforementioned reasons.
 
 #### Cloudinary credentials setup:
 

@@ -15,12 +15,8 @@
     "react-router-dom": "^7.6.0",
     "react-dropzone": "^14.3.8",
     "cloudinary": "^2.6.1",
-<<<<<<< HEAD
-    "react-icons": "^5.5.0"
-=======
     "react-icons": "^5.5.0",
     "nprogress": "^0.2.0"
->>>>>>> 87b8b2a9d4d7a8dbbf2ccf330f836be216a357a6
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

@@ -44,6 +44,8 @@ main,
 }
 
 .main {
+  display: flex;
+  flex-flow: column nowrap;
   width: calc(100vw - 2.1rem);
   margin: 0 auto;
   background-color: var(--secondary-accent);
@@ -53,6 +55,9 @@ main,
   min-height: 100vh;
   border-radius: 20px;
   margin-top: 7.1rem;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
 }
 
 .header {
@@ -73,7 +78,6 @@ main,
 .heading {
   width: 100%;
   padding: 1rem;
-  padding-top: 10rem;
 }
 
 h1 {
@@ -81,6 +85,7 @@ h1 {
   color: var(--tertiary-accent);
   font-weight: 700;
   text-align: center;
+  font-size: 6rem;
 }
 
 .sub-heading {
@@ -92,11 +97,17 @@ h1 {
 }
 
 .controls {
-  width: 100%;
+  position: relative;
+  width: 60%;
   display: flex;
-  gap: 3rem;
+  flex-wrap: wrap;
+  gap: 2rem;
   justify-content: space-evenly;
-  margin-top: 10rem;
+  margin-top: 8rem;
+}
+
+.controls__semester {
+  position: relative;
 }
 
 .button {
@@ -121,10 +132,11 @@ h1 {
 }
 
 .dropdown--semester {
-  position: relative;
+  position: absolute;
   width: 250px;
-  top: -5%;
+  top: 80%;
   left: 12%;
+  z-index: 2;
 }
 
 .arrowhead {
@@ -177,11 +189,15 @@ h1 {
   transition: transform 0.8s ease;
 }
 
-.dropdown--branches {
+.controls__branch {
   position: relative;
+}
+
+.dropdown--branches {
+  position: absolute;
   left: 9%;
-  top: -3%;
-  z-index: 1;
+  top: 90%;
+  z-index: 2;
 }
 
 .branches__container {
@@ -194,7 +210,7 @@ h1 {
 
 .arrowhead-branch {
   position: absolute;
-  left: 60%;
+  left: 71.2%;
   top: -7%;
 }
 
@@ -222,7 +238,6 @@ h1 {
 }
 
 .button-purple {
-  position: absolute;
   width: 200px;
   background-color: var(--primary-accent);
   height: 60px;
@@ -232,10 +247,9 @@ h1 {
   align-items: center;
   font-size: 25px;
   border-radius: 30px;
-  margin: 6rem auto;
   cursor: pointer;
   transition: all 0.5s ease;
-  bottom: 5%;
+  margin-top: 5rem;
   z-index: 0;
 }
 

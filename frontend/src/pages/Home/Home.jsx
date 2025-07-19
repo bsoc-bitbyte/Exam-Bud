@@ -175,7 +175,13 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="button-purple">
+      <div
+        className="button-purple"
+        onClick={() => {
+          setBranchDropdown(false);
+          setSemDropdown(false);
+        }}
+      >
         <p>Done</p>
       </div>
     </div>

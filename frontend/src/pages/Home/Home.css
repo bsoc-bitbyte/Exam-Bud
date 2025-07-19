@@ -15,15 +15,16 @@
 }
 
 html {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-color: var(--tertiary-accent);
 }
 
 body {
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   background-color: var(--tertiary-accent);
+  flex: 0 0 auto;
 }
 
 ul,
@@ -35,19 +36,18 @@ li {
 
 main,
 .main-content {
-  flex: 1;
+  flex: 0 0 auto;
 }
 
 #root {
   min-height: 100vh;
-  width: 100%;
+  width: 100vw;
 }
 
 .main {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: column wrap;
   width: calc(100vw - 2.1rem);
-  margin: 0 auto;
   background-color: var(--secondary-accent);
   background-image: url("../../assets/home/texture.png");
   background-repeat: no-repeat;
@@ -278,9 +278,30 @@ h1 {
   }
 }
 
-@media (max-width: 495px) {
+@media (min-width: 495px) and (max-width: 769px) {
+  .controls {
+    margin-top: 2rem;
+  }
+  .button-purple {
+    margin-top: 2rem;
+  }
+}
+
+@media (min-width: 300px) and (max-width: 495px) {
+  body {
+    width: 100vw;
+  }
+
   .main {
-    margin-top: -1.2rem;
+    margin-top: 4rem;
+  }
+
+  h1 {
+    font-size: 80px;
+  }
+
+  .sub-heading {
+    font-size: 40px;
   }
 
   .header {
@@ -293,5 +314,53 @@ h1 {
     padding: 1rem;
     margin-top: 1rem;
     border-radius: 10px;
+  }
+
+  .controls {
+    margin-top: 3rem;
+  }
+
+  .button {
+    width: 200px;
+  }
+
+  .dropdown--semester {
+    width: 100px;
+  }
+
+  .sem-list__container {
+    position: absolute;
+    width: 120px;
+    left: 45%;
+    margin-top: 6px;
+  }
+
+  .sem-list {
+    grid-template-columns: repeat(2, 30px);
+    padding: 10px;
+  }
+
+  .sem-list__item {
+    width: 30px;
+    height: 30px;
+  }
+
+  .arrowhead {
+    left: 124%;
+    margin-top: -15px;
+    z-index: 2;
+  }
+
+  .dropdown--branches {
+    left: 30%;
+  }
+
+  .branches__container {
+    width: 120px;
+    height: 250px;
+  }
+
+  .arrowhead-branch {
+    left: 65%;
   }
 }

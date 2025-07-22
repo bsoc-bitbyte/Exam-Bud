@@ -1,62 +1,68 @@
-import { useEffect, useState } from 'react';
-import UploadModal from './Upload';
-import share_icon from '../assets/share_icon.png';
-import download_icon from '../assets/download_icon.png';
-import notes_icon from '../assets/notes_icon.png';
-import star_unfilled from '../assets/star 0.png';
-import star_filled from '../assets/star 1.png';
+import { useEffect, useState, useCallback } from "react";
+import UploadModal from "./Upload";
+import share_icon from "../assets/share_icon.png";
+import download_icon from "../assets/download_icon.png";
+import notes_icon from "../assets/notes_icon.png";
+import star_unfilled from "../assets/star 0.png";
 
-export default function LabList({ subjectId, searchQuery = '' }) {
+export default function LabList({ subjectId, searchQuery = "" }) {
   const [labs, setLabs] = useState([]);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
   const [modalOpen, setmodalOpen] = useState(false);
 
-  const load = () => {
+  const load = useCallback(async () => {
     try {
       fetch(`http://localhost:4000/subjects/${subjectId}/labs`)
-        .then(r => r.json())
-        .then(res => setLabs(res.data));
+        .then((r) => r.json())
+        .then((res) => setLabs(res.data));
     } catch (err) {
-      console.error('Error in load:', err);
+      console.error("Error loading ", err);
     }
-  };
+  }, [subjectId]);
 
   useEffect(() => {
     load();
-  }, [subjectId]);
+    return () => {
+      try {
+        // future cleanup (if needed)
+      } catch (err) {
+        console.error("Cleanup error lablist", err);
+      }
+    };
+  }, [load]);
 
   const add = async (uploadTitle, cloudinaryUrl) => {
     const payload = {
       title: uploadTitle,
-      url: cloudinaryUrl
+      url: cloudinaryUrl,
     };
 
     await fetch(`http://localhost:4000/subjects/${subjectId}/labs`, {
-      method: 'POST',
-      headers: { 
-        'x-user-id': 1, 
-        'x-user-role': 'USER',
-        'Content-Type': 'application/json'
+      method: "POST",
+      headers: {
+        "x-user-id": 1,
+        "x-user-role": "USER",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
-    setTitle('');
+    setTitle("");
     load();
   };
 
   const del = async (id) => {
     try {
-      await fetch(`http://localhost:4000/labs/${id}`, { method: 'DELETE' });
+      await fetch(`http://localhost:4000/labs/${id}`, { method: "DELETE" });
       load();
     } catch (err) {
-      console.error('Error in delete:', err);
+      console.error("Error in delete:", err);
     }
   };
 
-  const handleUploadComplete = async ({ url, public_id }) => {
+  const handleUploadComplete = async ({ url }) => {
     await add(title, url);
-    setTitle('');
+    setTitle("");
     setmodalOpen(false);
   };
 
@@ -70,7 +76,9 @@ export default function LabList({ subjectId, searchQuery = '' }) {
 
   return (
     <div className="min-w-[80vw] mx-auto p-6 space-y-6">
-      <h2 className="text-2xl font-bold text-center text-white">Lab Materials</h2>
+      <h2 className="text-2xl font-bold text-center text-white">
+        Lab Materials
+      </h2>
 
       <form className="flex flex-col md:flex-row items-center justify-center gap-4">
         <input
@@ -100,7 +108,7 @@ export default function LabList({ subjectId, searchQuery = '' }) {
           ? labs.filter(
               (l) =>
                 l.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                l.user.name.toLowerCase().includes(searchQuery.toLowerCase())
+                l.user.name.toLowerCase().includes(searchQuery.toLowerCase()),
             )
           : labs
         ).map((l) => (

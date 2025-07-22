@@ -1,68 +1,69 @@
-import { useEffect, useState } from 'react';
-import UploadModal from './Upload.jsx';
-import share_icon from '../assets/share_icon.png';
-import download_icon from '../assets/download_icon.png';
-import notes_icon from '../assets/notes_icon.png';
-import star_unfilled from '../assets/star 0.png';
-import star_filled from '../assets/star 1.png';
+import { useEffect, useState, useCallback } from "react";
+import UploadModal from "./Upload.jsx";
+import share_icon from "../assets/share_icon.png";
+import download_icon from "../assets/download_icon.png";
+import notes_icon from "../assets/notes_icon.png";
+import star_unfilled from "../assets/star 0.png";
 
-export default function UploadList({ subjectId, searchQuery = '' }) {
+export default function UploadList({ subjectId, searchQuery = "" }) {
   const [items, setItems] = useState([]);
-  const [title, setTitle] = useState('');
+  const [title, setTitle] = useState("");
   const [modalOpen, setmodalOpen] = useState(false);
 
-  const load = () => {
+  const load = useCallback(async () => {
     try {
-      fetch(`http://localhost:4000/subjects/${subjectId}/uploads`)
-        .then(r => r.json())
-        .then(res => setItems(res.data));
+      const response = await fetch(
+        `http://localhost:4000/subjects/${subjectId}/uploads`,
+      );
+      const res = await response.json();
+      setItems(res.data);
     } catch (err) {
-      console.error('Error in load:', err);
+      console.error("Error in load:", err);
     }
-  };
+  }, [subjectId]);
 
   useEffect(() => {
     load();
-  }, [subjectId]);
+  }, [load]);
 
   const add = async (uploadTitle, cloudinaryUrl) => {
     const payload = {
       title: uploadTitle,
-      url: cloudinaryUrl
+      url: cloudinaryUrl,
     };
 
     await fetch(`http://localhost:4000/subjects/${subjectId}/uploads`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'x-user-id': 1,
-        'x-user-role': 'USER',
-        'Content-Type': 'application/json'
+        "x-user-id": 1,
+        "x-user-role": "USER",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     });
 
-    setTitle('');
+    setTitle("");
     load();
   };
 
   const del = async (id) => {
     try {
-      await fetch(`http://localhost:4000/uploads/${id}`, { method: 'DELETE' });
+      await fetch(`http://localhost:4000/uploads/${id}`, { method: "DELETE" });
       load();
     } catch (err) {
-      console.error('Error in delete:', err);
+      console.error("Error in delete:", err);
     }
   };
 
-  const handleUploadComplete = async ({ url, public_id }) => {
+  const handleUploadComplete = async ({ url }) => {
     await add(title, url);
-    setTitle('');
+    setTitle("");
     setmodalOpen(false);
   };
 
   const handleButtonClick = () => {
-    if (title.trim() === '') {
-      alert('Please enter a title before uploading.');
+    if (title.trim() === "") {
+      alert("Please enter a title before uploading.");
       return;
     }
     setmodalOpen(true);
@@ -75,7 +76,7 @@ export default function UploadList({ subjectId, searchQuery = '' }) {
       <form className="flex flex-col md:flex-row gap-4 items-center justify-center">
         <input
           value={title}
-          onChange={e => setTitle(e.target.value)}
+          onChange={(e) => setTitle(e.target.value)}
           placeholder="Title"
           required
           className="w-full md:w-1/3 px-4 py-2 rounded-xl border border-gray-300"
@@ -99,10 +100,10 @@ export default function UploadList({ subjectId, searchQuery = '' }) {
       <ul className="space-y-4">
         {(searchQuery
           ? items.filter((u) =>
-              u.title.toLowerCase().includes(searchQuery.toLowerCase())
+              u.title.toLowerCase().includes(searchQuery.toLowerCase()),
             )
           : items
-        ).map(u => (
+        ).map((u) => (
           <li
             key={u.id}
             className="flex flex-col md:flex-row md:items-center justify-between bg-white shadow-md rounded-2xl px-4 py-3"

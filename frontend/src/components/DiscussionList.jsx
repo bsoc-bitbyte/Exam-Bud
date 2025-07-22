@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function DiscussionList({ subjectId ,searchQuery=''}) {
   const [list, setList] = useState([]);
   const [txt, setTxt] = useState('');
 
-  const load = () => {
+const load = useCallback(async()=> {
     try {
       fetch(`http://localhost:4000/subjects/${subjectId}/discussions`)
         .then((r) => r.json())
@@ -12,7 +12,7 @@ export default function DiscussionList({ subjectId ,searchQuery=''}) {
     } catch (err) {
       console.error('Error loading discussions:', err);
     }
-  };
+  }, [subjectId]); 
 
   useEffect(() => {
     load();
@@ -23,10 +23,11 @@ export default function DiscussionList({ subjectId ,searchQuery=''}) {
         console.error('Cleanup error in DiscussionList:', err);
       }
     };
-  }, [subjectId]);
+  }, [load]);
 
   const post = async (e) => {
     e.preventDefault();
+    
     try {
       await fetch(`http://localhost:4000/subjects/${subjectId}/discussions`, {
         method: 'POST',
@@ -37,7 +38,9 @@ export default function DiscussionList({ subjectId ,searchQuery=''}) {
         body: JSON.stringify({ content: txt }),
       });
       setTxt('');
-      load();
+
+      await load();
+      
     } catch (err) {
       console.error('Error posting discussion:', err);
     }

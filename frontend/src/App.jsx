@@ -41,12 +41,10 @@ export default function App() {
             <main className="main-content">
                 <Suspense fallback={<Loading />}>
                     <Routes>
-                        {/* All Routes are now public */}
                         <Route path="/" element={<LandingPage />} />
                         <Route path="/login" element={<LoginPage />} />
                         <Route path="/signup" element={<SignUp />} />
-                        
-                        {/* Previously protected routes - now public */}
+                    
                         <Route path="/home" element={<Home />} />
                         <Route path="/Home" element={<Home />} />
                         <Route path="/branch/:branchId" element={<Branch />} />

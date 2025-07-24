@@ -2,6 +2,14 @@ const express = require('express');
 const admin = require('firebase-admin');
 const router = express.Router();
 
+if (!admin.apps.length) {
+  const serviceAccount = require('../../Exam-bud-firebase.json');
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    projectId: process.env.FIREBASE_PROJECT_ID
+  });
+}
+
 router.post('/login', async (req, res) => {
   const { idToken } = req.body;
 
@@ -41,7 +49,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-router.get('/me', require('../middleware/dummyAuth.js'), (req, res) => {
+router.get('/me', require('../middleware/FirebaseAuth.js'), (req, res) => {
   res.json({ success: true, user: req.user });
 });
 
@@ -51,7 +59,7 @@ router.post('/verify-domain', (req, res) => {
   res.json({ success: true, isValidDomain });
 });
 
-router.post('/logout', require('../middleware/dummyAuth.js'), (req, res) => {
+router.post('/logout', require('../middleware/FirebaseAuth.js'), (req, res) => {
   res.json({ success: true, message: 'Logged out' });
 });
 

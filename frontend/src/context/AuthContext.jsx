@@ -11,7 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState(localStorage.getItem('authToken'));
 
-  const API_BASE = import.meta.env.VITE_API_BASE_URL;
+  const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000';
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
@@ -27,7 +27,17 @@ export const AuthProvider = ({ children }) => {
             });
 
             if (response.ok) {
-              setUser(firebaseUser);
+              const data = await response.json();
+              const userData = data.user || {
+                uid: firebaseUser.uid,
+                email: firebaseUser.email,
+                name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+                picture: firebaseUser.photoURL,
+                emailVerified: firebaseUser.emailVerified,
+                role: 'USER'
+              };
+              
+              setUser(userData);
               setToken(idToken);
               localStorage.setItem('authToken', idToken);
             } else {
@@ -37,11 +47,17 @@ export const AuthProvider = ({ children }) => {
               localStorage.removeItem('authToken');
             }
           } catch (error) {
-            console.error('Auth error:', error);
-            await signOut(auth);
-            setUser(null);
-            setToken(null);
-            localStorage.removeItem('authToken');
+            const userData = {
+              uid: firebaseUser.uid,
+              email: firebaseUser.email,
+              name: firebaseUser.displayName || firebaseUser.email.split('@')[0],
+              picture: firebaseUser.photoURL,
+              emailVerified: firebaseUser.emailVerified,
+              role: 'USER'
+            };
+            setUser(userData);
+            setToken(idToken);
+            localStorage.setItem('authToken', idToken);
           }
         } else {
           await signOut(auth);

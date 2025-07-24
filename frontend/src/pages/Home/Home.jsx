@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import dropdown from "../../assets/home/dropdown.svg";
 import dropdownArrow from "../../assets/home/dropdownArrow.svg";
+import { useAuth } from "../../context/AuthContext";
 import "./Home.css";
 
 export default function Home() {
@@ -12,6 +13,8 @@ export default function Home() {
   const [branchDropdown, setBranchDropdown] = useState(false);
 
   const [branches, setBranches] = useState([]);
+  const { user } = useAuth();
+
   useEffect(() => {
     fetch("http://localhost:4000/branches")
       .then((r) => r.json())
@@ -21,7 +24,7 @@ export default function Home() {
   return (
     <div className="main">
       <div className="heading">
-        <h1>Welcome Parth!</h1>
+        <h1>Welcome {user?.name || 'Student'}!</h1>
         <p className="sub-heading">
           Select your <br />
           Semester and Branch.
@@ -68,7 +71,7 @@ export default function Home() {
                     setSemDropdown(!semDropdown);
                   }}
                 >
-                  <p>3</p>
+                  <p>2</p>
                 </li>
                 <li
                   className="sem-list__item"

@@ -219,6 +219,53 @@ nav {
   color: white;
 }
 
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  flex-shrink: 0;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--secondary-accent);
+}
+
+.user-name {
+  font-weight: 600;
+  color: var(--secondary-accent);
+  font-size: 16px;
+}
+
+.btn__logout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 24px;
+  gap: 10px;
+  width: 147px;
+  height: 64px;
+  background: var(--secondary-accent);
+  box-shadow: inset 2px 2px 6px #ffffff, inset -6px -5px 8px #102250;
+  border-radius: 35px;
+  border: none;
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.btn__logout:hover {
+  transform: translateY(-2px);
+  box-shadow: inset 2px 2px 8px #ffffff, inset -6px -5px 10px #102250;
+}
+
 @media (min-width: 769px) and (max-width: 1024px) {
   .header {
     width: calc(100% - 2rem);

@@ -9,11 +9,18 @@ import dropdownArrow from '../../assets/landingPage/dropdownArrow.svg';
 import hamburger from '../../assets/landingPage/hamburger.svg';
 import './Header.css';
 import {useState} from "react";
+import { useAuth } from '../../context/AuthContext';
 
 export default function Header() {
 
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [hamburgerOpen, setHamburgerOpen] = useState(false);
+    const { user, logout, isAuthenticated } = useAuth();
+
+    const handleLogout = () => {
+        logout();
+        setHamburgerOpen(false);
+    };
 
     return (
         <header className="header">
@@ -63,7 +70,15 @@ export default function Header() {
                     </nav>
                 </div>
 
-                <Link to="/login" className="btn__login">Login</Link>
+                {isAuthenticated ? (
+                    <div className="user-menu">
+                        <img src={user?.picture || '/default-avatar.png'} alt="Profile" className="user-avatar" />
+                        <span className="user-name">{user?.name}</span>
+                        <button onClick={handleLogout} className="btn__logout">Logout</button>
+                    </div>
+                ) : (
+                    <Link to="/login" className="btn__login">Login</Link>
+                )}
             </div>
 
             <div className="navbar">
@@ -104,7 +119,16 @@ export default function Header() {
                         <li><NavLink to='/discussion' className="nav__link">Discussions</NavLink></li>
                     </ul>
                 </nav>
-                <Link to="/login" className="btn__login">Login</Link>
+                
+                {isAuthenticated ? (
+                    <div className="user-menu">
+                        <img src={user?.picture || '/default-avatar.png'} alt="Profile" className="user-avatar" />
+                        <span className="user-name">{user?.name}</span>
+                        <button onClick={logout} className="btn__logout">Logout</button>
+                    </div>
+                ) : (
+                    <Link to="/login" className="btn__login">Login</Link>
+                )}
             </div>
         </header>
     )
